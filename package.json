@@ -1,31 +1,11 @@
-const API = "https://YOUR-BACKEND-URL";
-
-async function run() {
-  const link = document.getElementById("link").value;
-  const out = document.getElementById("out");
-  out.innerHTML = "Loading...";
-
-  const r = await fetch(API + "/api/subtitle", {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ url: link })
-  });
-
-  const d = await r.json();
-  out.innerHTML = "";
-
-  for (let l of d.subtitles) {
-    const t = await fetch(API + "/api/translate", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({ text:l })
-    }).then(r=>r.json());
-
-    out.innerHTML += 
-      <div class="sub">
-        <div class="eng">${l}</div>
-        <div class="mm" contenteditable="true">${t.translated}</div>
-      </div>
-    ;
+{
+  "name": "amk-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "youtube-transcript": "^1.1.0",
+    "node-fetch": "^3.3.2"
   }
 }
